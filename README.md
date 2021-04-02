@@ -58,6 +58,3 @@ Serve para "favoritar" a pasta `node_modules` dentro do container de forma que e
 A seguinte linha foi necessária para o autoreload do container funcionar:
     environment:
       - CHOKIDAR_USEPOLLING=true
-
-3.
-A linha `COPY . .` não é necessária no `Dockerfile.dev` porque estamos fazendo o mapeamento da pasta local para o container. O professor do curso prefere deixar a linha lá, mesmo que não tenha uso, como referência.

@@ -35,7 +35,11 @@ docker run -p 8085:80 rogerzanelato/react-app
 
 Os steps definidos no yml de configuração do travis esperam que os comandos retornem um status code com o resultado, lembrando das regras de error code do Linux (0 sucesso / 1-255 erro).
 
-Ao executar os testes como normalmente fazemos não há status codes retornados, e a execução fica pausada esperando novos comandos. Para que seja retornado o resultado, precisamos passar as flags `-- --coverage` assim será retornando 0 quando nenhum teste quebrar, um error code caso quebre.
+Ao executar os testes como normalmente fazemos não há status codes retornados, e a execução fica pausada esperando novos comandos. Para que seja retornado o resultado, precisamos passar as flags `-- --coverage` para gerar o coverage, acompanhado da varávelmente de ambiente `-e CI=true`, assim será retornando 0 quando nenhum teste quebrar, e um error code caso quebre.
+
+```shell
+docker run -e CI=true rogerzanelato/docker-react npm run test -- --coverage
+```
 
 ## Deployment AWS
 

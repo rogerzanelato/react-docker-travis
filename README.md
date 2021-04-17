@@ -1,4 +1,4 @@
-Esse exemplo contempla como seria a configuração de uma imagem docker em React para desenvolvimento e produção.
+Esse exemplo contempla como seria a configuração de uma aplicação com imagem docker em React para desenvolvimento e produção, com CI/CD no Travis e deployment para o ElasticBeanstalk na AWS.
 
 Quando em desenvolvimento, queremos que atualizações no código fonte, atualizem automáticamente a aplicação (como seria se estivéssemos executando o npm start no local), para isso acontecer, precisamos "linkar" o código fonte do nosso computador com o container, através da flag `-v` de volume.
 
@@ -48,6 +48,12 @@ Antigamente o Elastic Beanstalk dava preferência à procurar um `Dockerfile` na
 Para que não tenhamos problema com isso (em vista que nosso docker-compose é para desenvolvimento local), ao selecionar o ambiente de execução na AWS, precisamos marcar a opção: **Docker running on 64bit Amazon Linux**
 
 No lugar da "Docker running on 64bit Amazon Linux 2".
+
+Para que o CD funcione, é necessário criar um usuário IAM com a permissão AdministratorAccess-AWSElasticBeanstalk, gerar uma chave de acesso, e configurá-las nas seguintes variáveis de ambeinte no Travis:
+- AWS_ACCESS_KEY
+- AWS_SECRET_KEY
+
+Obs: Esse modelo de implantar aplicação em produção não é recomendável, pois dependemos da AWS gerar a imagem do nosso Dockerfile e executá-la, dificultando a possibilidade de migrar de cloud, e processamento desnecessário. Uma forma mais recomendada, seria gerar a imagem pelo CI, publicá-la no docker.hub (ou outro lugar), e deixar para a cloud apenas fazer pull da imagem, e executar a aplicação (conforme feito no repositório fib-multiplos-container-aws-travis).
 
 ## Disclaimers
 
